@@ -1,8 +1,8 @@
 # Langchain imports
 from langchain.schema import Document
 from langchain.text_splitter import RecursiveCharacterTextSplitter
-from langchain_community.vectorstores import Chroma
 from langchain_community.document_loaders import DirectoryLoader
+from langchain_chroma import Chroma
 from langchain_huggingface import HuggingFaceEmbeddings
 
 # Huggingface imports
@@ -18,18 +18,21 @@ DATA_PATH = 'data'
 CHROMADB_PATH = 'chroma'
 
 # DOC SPLITTER
-SPLITTER_CHUNK_SIZE = 1000
-SPLITTER_OVERLAP = 300
+SPLITTER_CHUNK_SIZE = 500
+SPLITTER_OVERLAP = 100
 
 # MODELS 
 EMBEDDINGS_MODEL = 'sentence-transformers/all-mpnet-base-v2'
+LLM_MODEL = LLM_TOKENIZER = 'EleutherAI/gpt-neo-1.3B' # model and tokenizer are the same because they are from the same model
+
+# CONFIGS
+CHROMA_LOAD = True # Should the chroma database be loaded if it already exists? True or False
 EMBEDDINGS_TOP_K = 3
-LLM_MODEL = LLM_TOKENIZER = 'EleutherAI/gpt-j-6b' # model and tokenizer are the same because they are from the same model
-LLM_MAX_LENGTH = 512
+LLM_TASK = 'text-generation' # 'text-generation', 'question-answering'
+LLM_MAX_NEW_TOKENS = 800
 LLM_PADDING = 'max_length'
 LLM_RANDOM = True # Should the LLM generate random answers? True or False
-LLM_TEMP = 0.5 # Temperature for the random generation
-LLM_TASK = 'text-generation' # 'text-generation', 'question-answering'
+LLM_TEMP = 0.1 # Temperature for the random generation
 LLM_PATH = 'llmmodel'
 
 # PROMT
@@ -111,24 +114,29 @@ def init_chroma_database(chunks: list[Document], embeddings_model: HuggingFaceEm
 
     # Delete the dataset if it already exists
     if os.path.exists(CHROMADB_PATH):
-        print(f"init_chroma_database: Overwritting pre-existing Chroma database at path: {CHROMADB_PATH}")
-        shutil.rmtree(CHROMADB_PATH)
+        if CHROMA_LOAD:
+            print(f"init_chroma_database: Loading pre-existing Chroma database from path: {CHROMADB_PATH}")
+            vector_store = Chroma(embedding_function=embeddings_model, persist_directory=CHROMADB_PATH)
+        else:
+            print(f"init_chroma_database: Overwriting pre-existing Chroma database at path: {CHROMADB_PATH}")
+            shutil.rmtree(CHROMADB_PATH)
     else:
         print(f"init_chroma_database: Creating a new Chroma database at path: {CHROMADB_PATH}")
 
     # Create a new sqlite database to store vectorial representations of the documents
-    database = Chroma.from_documents(
-        documents=chunks, 
-        embedding=embeddings_model, 
-        persist_directory=CHROMADB_PATH)
+    if not CHROMA_LOAD:
+        vector_store = Chroma.from_documents(
+            documents=chunks, 
+            embedding=embeddings_model, 
+            persist_directory=CHROMADB_PATH)
 
     # Print the number of documents in the database
-    print(f"init_chroma_database: Created a Chroma database with {len(database)} documents.")
+    print(f"init_chroma_database: Created a Chroma database.")
 
-    return database
+    return vector_store
 
 # Query the chroma database
-def query_chroma_database(embeddings_model: HuggingFaceEmbeddings, database: Chroma):
+def query_chroma_database(database: Chroma):
     """ We query the Chroma database with a given query, the database will return the most k similar
     chunks of text to the query. """
 
@@ -165,27 +173,31 @@ def generate_answer(promt: str):
     """ We generate the final answer using the LLM model. """
 
     # Print status
-    print("generate_answer: Generating answer using the LLM model.")
+    print(f"generate_answer: Generating answer using the LLM model: {LLM_MODEL}.")
 
     # Load the LLM model
     model = AutoModelForCausalLM.from_pretrained(LLM_MODEL, cache_dir=LLM_PATH)
     tokenizer = AutoTokenizer.from_pretrained(LLM_TOKENIZER, cache_dir=LLM_PATH)
 
+    # Set a padding token if not already set ( some LLM Models need it )
+    if tokenizer.pad_token is None:
+        tokenizer.pad_token = tokenizer.eos_token
+
     # Create an generator ( pipeline instance ) with the LLM model, retruns a TextGenerationPipeline
     generator = pipeline(
         task=LLM_TASK, 
-        model=model, 
+        model=model,
         tokenizer=tokenizer)
 
     # Query the pipeline (model with speific parameters) for a text generation, returns a list or a list of lists of dict
     #   https://huggingface.co/docs/transformers/v4.47.1/en/main_classes/pipelines#transformers.TextGenerationPipeline
     answers = generator(
-        promt, 
-        max_length=LLM_MAX_LENGTH,
+        promt,
+        max_new_tokens=LLM_MAX_NEW_TOKENS,
         truncation=True,
-        padding=LLM_PADDING,
+        padding=True,
         do_sample=LLM_RANDOM, 
-        temperature=LLM_TEMP, 
+        temperature=LLM_TEMP,
         return_full_text=False)
 
     # Print status
@@ -209,7 +221,7 @@ def main():
     database_instance = init_chroma_database(document_chunks, embeddings_model)
 
     # Query the chroma database
-    query, results = query_chroma_database(embeddings_model, database_instance)
+    query, results = query_chroma_database(database_instance)
 
     """
     # DEBUG: Print the top k similar results from the database    
