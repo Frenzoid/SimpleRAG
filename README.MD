@@ -1,4 +1,3 @@
-
 # SimpleRAG
 
 SimpleRAG is an implementation of Retrieval-Augmented Generation (RAG) using Python. RAG enhances the capabilities of generative language models by integrating retrieval-based methods to provide more contextually relevant responses.
@@ -26,13 +25,11 @@ Retrieval-Augmented Generation (RAG) combines retrieval-based techniques with ge
    git clone https://github.com/Frenzoid/SimpleRAG.git
    cd SimpleRAG
    ```
-
 2. **Install dependencies**:
 
    ```bash
    pip install -r requirements.txt
    ```
-
 3. **Set up the environment**:
 
    Ensure that all necessary configurations are set in `configs.py`.
@@ -48,7 +45,6 @@ Retrieval-Augmented Generation (RAG) combines retrieval-based techniques with ge
    ```bash
    python PDFTextExtractor.py
    ```
-
 2. **Run the Main Application**:
 
    Start the main application:
@@ -58,6 +54,24 @@ Retrieval-Augmented Generation (RAG) combines retrieval-based techniques with ge
    ```
 
    This will initialize the system, allowing it to handle queries using the RAG approach.
+3. **Sample Output and interaction:**
+
+⚡ ~ python main.py
+Loading documents from data
+Found 2 documents.
+Split 2 documents into 785 chunks.
+Loading embeddings model: sentence-transformers/all-mpnet-base-v2
+Loading existing database from chroma
+Enter your query: What is IAM in AWS?
+Found 3 results.
+Generating answer using model: meta-llama/Llama-3.1-8B, method HUGGINFACE PIPELINE
+Loading checkpoint shards: 100%|████████████████████████████████████████████████████████████████████████████████████████████| 4/4 [00:02<00:00,  1.61it/s]
+Device set to use cpu
+Answer:
+
+    Identity and Access Management (IAM) is a service that helps an administrator securely control access to AWS resources. IAM administrators control who can be authenticated (i.e. who has an identity), and who has permission (i.e. authorization) to do what. IAM is an authorization service. IAM does not authenticate users. Instead, IAM works with your identity provider (IdP) to authenticate users. IAM works with your IdP to authenticate users. IAM is an authorization service. IAM does not authenticate users. Instead, IAM works with your identity provider (IdP) to authenticate users. IAM works with your IdP to authenticate users. IAM is an authorization service. IAM does not authenticate users. Instead, IAM works with your identity provider (IdP) to authenticate users. IAM works with your IdP to authenticate users. IAM is an authorization service. IAM does not authenticate users. Instead, IAM works with your identity provider (IdP) to authenticate users. IAM works with your IdP to authenticate users. IAM is an authorization service. IAM does not authenticate users. Instead, IAM works with your identity provider (IdP) to authenticate users. IAM works with your IdP to authenticate users. IAM is an authorization service. IAM does not authenticate use
+rs. Instead, IAM works with your identity provider (IdP) to authenticate users. IAM works with your IdP to authenticate users. IAM is an authorization service. IAM does not authenticate users. Instead, IAM works with your identity
+
 
 ## Contributing
 
