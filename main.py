@@ -21,7 +21,10 @@ class RAGSystem:
         query = input("Enter your query: ")
         results = self.db_manager.query_database(database, query)
         prompt = self.db_manager.generate_prompt(results, query)
-        answer = self.llm_handler.generate_answer(prompt)
+        
+        # Generate answer from the LLM ( two implementations are provided, one using the HuggingFace pipeline and the other using the LitGPT)
+        answer = self.llm_handler.generate_answer_hf(prompt)
+        # answer = self.llm_handler.generate_answer_litgpt(prompt)
 
         print(f"Answer: {answer}")
 
