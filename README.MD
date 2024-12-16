@@ -46,7 +46,7 @@ Retrieval-Augmented Generation (RAG) combines retrieval-based techniques with ge
    Run the document processor to extract and store text:
 
    ```bash
-   python document_processor.py
+   python PDFTextExtractor.py.py
    ```
 
 2. **Run the Main Application**:
