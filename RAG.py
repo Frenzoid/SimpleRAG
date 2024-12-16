@@ -7,6 +7,7 @@ from langchain_huggingface import HuggingFaceEmbeddings
 
 # Huggingface imports
 from transformers import AutoTokenizer, AutoModelForCausalLM, pipeline
+from huggingface_hub import login
 
 # System imports
 import os
@@ -23,7 +24,7 @@ SPLITTER_OVERLAP = 100
 
 # MODELS 
 EMBEDDINGS_MODEL = 'sentence-transformers/all-mpnet-base-v2'
-LLM_MODEL = LLM_TOKENIZER = 'EleutherAI/gpt-neo-1.3B' # model and tokenizer are the same because they are from the same model
+LLM_MODEL = LLM_TOKENIZER = 'meta-llama/Llama-3.1-8B' # model and tokenizer are the same because they are from the same model
 
 # CONFIGS
 CHROMA_LOAD = True # Should the chroma database be loaded if it already exists? True or False
@@ -117,18 +118,20 @@ def init_chroma_database(chunks: list[Document], embeddings_model: HuggingFaceEm
         if CHROMA_LOAD:
             print(f"init_chroma_database: Loading pre-existing Chroma database from path: {CHROMADB_PATH}")
             vector_store = Chroma(embedding_function=embeddings_model, persist_directory=CHROMADB_PATH)
+            print(f"init_chroma_database: Loaded pre-existing chroma daatbase.")
+            return vector_store
         else:
-            print(f"init_chroma_database: Overwriting pre-existing Chroma database at path: {CHROMADB_PATH}")
+            print(f"init_chroma_database: Overwriting deleting eisting Chroma database at path: {CHROMADB_PATH}")
             shutil.rmtree(CHROMADB_PATH)
-    else:
-        print(f"init_chroma_database: Creating a new Chroma database at path: {CHROMADB_PATH}")
+   
+    print(f"init_chroma_database: Creating a new Chroma database at path: {CHROMADB_PATH}")
 
     # Create a new sqlite database to store vectorial representations of the documents
-    if not CHROMA_LOAD:
-        vector_store = Chroma.from_documents(
-            documents=chunks, 
-            embedding=embeddings_model, 
-            persist_directory=CHROMADB_PATH)
+
+    vector_store = Chroma.from_documents(
+        documents=chunks, 
+        embedding=embeddings_model, 
+        persist_directory=CHROMADB_PATH)
 
     # Print the number of documents in the database
     print(f"init_chroma_database: Created a Chroma database.")
