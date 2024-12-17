@@ -56,6 +56,7 @@ Retrieval-Augmented Generation (RAG) combines retrieval-based techniques with ge
    This will initialize the system, allowing it to handle queries using the RAG approach.
 3. **Sample Output and interaction:**
 
+```
 ⚡ ~ python main.py
 Loading documents from data
 Found 2 documents.
@@ -65,13 +66,13 @@ Loading existing database from chroma
 Enter your query: What is IAM in AWS?
 Found 3 results.
 Generating answer using model: meta-llama/Llama-3.1-8B, method HUGGINFACE PIPELINE
-Loading checkpoint shards: 100%|████████████████████████████████████████████████████████████████████████████████████████████| 4/4 [00:02<00:00,  1.61it/s]
+Loading checkpoint shards: 100%|██████████████████████████████████████████████████████████████████████| 4/4 [00:02<00:00,  1.61it/s]
 Device set to use cpu
 Answer:
 
     Identity and Access Management (IAM) is a service that helps an administrator securely control access to AWS resources. IAM administrators control who can be authenticated (i.e. who has an identity), and who has permission (i.e. authorization) to do what. IAM is an authorization service. IAM does not authenticate users. Instead, IAM works with your identity provider (IdP) to authenticate users. IAM works with your IdP to authenticate users. IAM is an authorization service. IAM does not authenticate users. Instead, IAM works with your identity provider (IdP) to authenticate users. IAM works with your IdP to authenticate users. IAM is an authorization service. IAM does not authenticate users. Instead, IAM works with your identity provider (IdP) to authenticate users. IAM works with your IdP to authenticate users. IAM is an authorization service. IAM does not authenticate users. Instead, IAM works with your identity provider (IdP) to authenticate users. IAM works with your IdP to authenticate users. IAM is an authorization service. IAM does not authenticate users. Instead, IAM works with your identity provider (IdP) to authenticate users. IAM works with your IdP to authenticate users. IAM is an authorization service. IAM does not authenticate use
 rs. Instead, IAM works with your identity provider (IdP) to authenticate users. IAM works with your IdP to authenticate users. IAM is an authorization service. IAM does not authenticate users. Instead, IAM works with your identity
-
+```
 
 ## Contributing
 
