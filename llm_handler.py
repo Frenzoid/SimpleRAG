@@ -24,10 +24,3 @@ class LLMHandler:
         )
 
         return generator(prompt)[0]["generated_text"]
-
-    # Generate an answer using the LitGPT
-    def generate_answer_litgpt(self, prompt):
-        print(f"Generating answer using model: {Configs.LLM_MODEL}, method LITGPT")
-        llm = LLM.load(Configs.LLM_MODEL)
-        text = llm.generate("Fix the spelling: Every fall, the familly goes to the mountains.")
-        return text

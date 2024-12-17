@@ -9,7 +9,7 @@ class Configs:
     EMBEDDINGS_THRESHOLD = 0.5 # Threshold for the embeddings to be considered relevant
 
     # LLM Model
-    LLM_MODEL = LLM_TOKENIZER = 'meta-llama/Llama-3.1-8B' # Model and tokenizer for the LLM
+    LLM_MODEL = LLM_TOKENIZER = 'unsloth/Llama-3.2-1B-Instruct' # Model and tokenizer for the LLM
     LLM_TASK = 'text-generation' # Task for the LLM: 'text-generation', 'question-answering', 'summarization'...
     LLM_MAX_NEW_TOKENS = 300 # Maximum new number of tokens to generate
     LLM_PADDING = 'max_length' # Padding for the LLM
