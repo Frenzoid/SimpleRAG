@@ -4,6 +4,7 @@ from llm_handler import LLMHandler
 
 class RAGSystem:
     def __init__(self):
+        # We generate instances of the DocumentProcessor, DatabaseManager, and LLMHandler classes.
         self.doc_processor = DocumentProcessor()
         self.db_manager = DatabaseManager()
         self.llm_handler = LLMHandler()

@@ -1,9 +1,9 @@
 unstructured
 unstructured[md]
+unstructured[pdf]
 langchain
 langchain_chroma
 langchain_huggingface
 langchain_community
 huggingface_hub
 transformers
-PyPDF2

@@ -1,15 +1,14 @@
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain_community.document_loaders import DirectoryLoader
 from langchain_huggingface import HuggingFaceEmbeddings
-from paths import Paths
 from configs import Configs
 
 class DocumentProcessor:
-
+    
     # This function loads the markdown documents from the data directory.    
     def load_documents(self):
-        print(f"Loading documents from {Paths.DATA_PATH}")
-        loader = DirectoryLoader(Paths.DATA_PATH, glob='*.md')
+        print(f"Loading documents from {Configs.DATA_PATH}")
+        loader = DirectoryLoader(Configs.DATA_PATH, glob='*.md')
         documents = loader.load()
         print(f"Found {len(documents)} documents.")
         return documents

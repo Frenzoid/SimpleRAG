@@ -1,5 +1,11 @@
 # configs.py
 class Configs:
+    # Paths
+    PDFS_PATH = "pdfs"
+    DATA_PATH = 'data'
+    CHROMADB_PATH = 'chroma'
+    LLM_PATH = 'llmmodel'
+
     # Document Splitter
     SPLITTER_CHUNK_SIZE = 500 # Chunk size for splitting the document
     SPLITTER_OVERLAP = 100 # Overlap size for splitting the document
@@ -15,6 +21,7 @@ class Configs:
     LLM_PADDING = 'max_length' # Padding for the LLM
     LLM_RANDOM = True # Random generation for the LLM
     LLM_TEMP = 0.1 # Temperature for the random generation
+    LLM_RETURN_FULL_TEXT = False # Add the system propmt to the returned text
 
     # Chroma
     CHROMA_LOAD = True # Load the Chroma database if it already exists
