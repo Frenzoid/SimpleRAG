@@ -26,7 +26,7 @@ class Configs:
     LLM_RETURN_FULL_TEXT = False # Add the system propmt to the returned text
 
     # Database
-    CHROMA_LOAD = True # Load the Chroma database if it already exists
+    CHROMA_LOAD = False # Load the Chroma database if it already exists
     CHROMA_COLLECTION_NAME = "Collection1" # Default collection ( database ) name for the Chroma database
     # Embeddings
     EMBEDDINGS_TOP_K = 6 # Top K results to return from the Chroma database
