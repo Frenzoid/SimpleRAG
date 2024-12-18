@@ -45,7 +45,7 @@ Retrieval-Augmented Generation (RAG) combines retrieval-based techniques with ge
 ```
 
    This will initialize the system, allowing it to handle queries using the RAG approach.
-   After this initial run, you may want to set `CHROMA_LOAD` on `Configs.py` to `False`, so next runs will load the dataset instead of recreating the entire thing.
+   After this initial run, you may want to set `CHROMA_LOAD` on `configs.py` to `False`, so next runs will load the dataset instead of recreating the entire thing.
 
 ## Sample Output and interaction
 
