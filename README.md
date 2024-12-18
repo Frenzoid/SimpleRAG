@@ -4,13 +4,13 @@ SimpleRAG is an implementation of Retrieval-Augmented Generation (RAG) using Pyt
 
 ## Overview
 
-Retrieval-Augmented Generation (RAG) combines retrieval-based techniques with generative language models to improve response quality by retrieving relevant information from a knowledge source before generating responses. This implementation leverages Python for processing and managing the integration between retrieval mechanisms and language generation models.
+Retrieval-Augmented Generation (RAG) combines retrieval-based techniques with generative language models to improve response quality by retrieving relevant information from a knowledge source before generating responses. This implementation leverages Python for processing and managing the integration between retrieval mechanisms and language generation models, and doesn't require or use of any authentication token with Meta, Huggignface, or else.
 
 ## Features
 
-- **Document Processing**: Extracts and processes text from PDF documents to build a knowledge base.
-- **Database Management**: Stores and manages processed documents for efficient retrieval.
-- **Language Model Handling**: Integrates with language models to generate responses augmented with retrieved information.
+- **Document Processing**: Extracts and processes text from PDF documents to build a knowledge base using Unstructured, in the example were using as dataset a Linux manual book and the entire AWS Serverless Documentation.
+- **Database Management**: Stores and manages a vectorial database for the processed documents for efficient retrieval using ChromaDB.
+- **Language Model Handling**: Integrates with language models to generate responses augmented with retrieved information, in the example we are using Llama-3.2-3B-Instruct.
 
 ## Requirements
 
@@ -36,25 +36,17 @@ Retrieval-Augmented Generation (RAG) combines retrieval-based techniques with ge
 
 ## Usage
 
-1. **Process Documents**:
+**Run the Main Application**:
 
-   Place your PDF documents in the `pdfs` directory.
+   Just start the main application:
 
-   Run the document processor to extract and store its contents in the data directory
-
-   ```bash
-   python pdf_parser.py
-   ```
-2. **Run the Main Application**:
-
-   Start the main application:
-
-   ```bash
+```bash
    python main.py
-   ```
+```
 
    This will initialize the system, allowing it to handle queries using the RAG approach.
-3. **Sample Output and interaction:**
+
+## Sample Output and interaction
 
 ```
 ⚡ ~ python main.py
