@@ -51,20 +51,23 @@ Retrieval-Augmented Generation (RAG) combines retrieval-based techniques with ge
 
 ```
 ⚡ ~ python main.py
-Loading documents from data
-Found 2 documents.
-Split 2 documents into 785 chunks.
 Loading embeddings model: sentence-transformers/all-mpnet-base-v2
-Loading existing database from chroma
-Enter your query: What is IAM in AWS?
-Found 3 results.
-Generating answer using model: meta-llama/Llama-3.1-8B, method HUGGINFACE PIPELINE
-Loading checkpoint shards: 100%|██████████████████████████████████████████████████████████████████████| 4/4 [00:02<00:00,  1.61it/s]
+Loading LLM model: unsloth/Llama-3.2-3B-Instruct
 Device set to use cpu
-Answer:
+Parsing PDFs from pdfs
+Converted The_Linux_Users_Guide.pdf to The_Linux_Users_Guide.md
+Converted serverless-core.pdf to serverless-core.md
+Loading documents from data
+Found 2 documents with extension *md.
+Split 2 documents into 1347 chunks.
+Deleting old database at chroma
+Creating new database at chroma
+Enter your query ( type 'exit' to exit ): what is IAM in AWS?
+Found 6 results.
+Generating answer using model: unsloth/Llama-3.2-3B-Instruct, method HUGGINFACE PIPELINE
+LAMEGPT: 
 
-    Identity and Access Management (IAM) is a service that helps an administrator securely control access to AWS resources. IAM administrators control who can be authenticated (i.e. who has an identity), and who has permission (i.e. authorization) to do what. IAM is an authorization service. IAM does not authenticate users. Instead, IAM works with your identity provider (IdP) to authenticate users. IAM works with your IdP to authenticate users. IAM is an authorization service. IAM does not authenticate users. Instead, IAM works with your identity provider (IdP) to authenticate users. IAM works with your IdP to authenticate users. IAM is an authorization service. IAM does not authenticate users. Instead, IAM works with your identity provider (IdP) to authenticate users. IAM works with your IdP to authenticate users. IAM is an authorization service. IAM does not authenticate users. Instead, IAM works with your identity provider (IdP) to authenticate users. IAM works with your IdP to authenticate users. IAM is an authorization service. IAM does not authenticate users. Instead, IAM works with your identity provider (IdP) to authenticate users. IAM works with your IdP to authenticate users. IAM is an authorization service. IAM does not authenticate use
-rs. Instead, IAM works with your identity provider (IdP) to authenticate users. IAM works with your IdP to authenticate users. IAM is an authorization service. IAM does not authenticate users. Instead, IAM works with your identity
+AWS Identity and Access Management (IAM) is a service that helps you securely control access to AWS resources. It allows you to manage users, groups, roles, and their permissions. IAM enables fine-grained access by defining policies to specify which actions are allowed or denied for specific resources. With features like multi-factor authentication (MFA) and temporary credentials, IAM enhances security. It supports identity federation, allowing external users to access AWS without creating IAM users. IAM is essential for managing secure access and ensuring compliance in AWS environments.
 ```
 
 ## Contributing
