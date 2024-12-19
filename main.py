@@ -47,8 +47,9 @@ class RAGSystem:
             # Generate a prompt for the LLM model using the query and the results from the database.
             prompt = self.llm_handler.generate_prompt(results, query)
 
+            # If the prompt is False, then we couldn't find any relevant chunk of the documents.
             if prompt is False:
-                print("Couldn't find any relevant chunk of the documents")
+                print("Couldn't find any relevant chunk of the documents, if you are unsure about this, increase the EMBEDDINGS_THRESHOLD in the configs.")
                 continue
             
             # Generate answer from the LLM 
