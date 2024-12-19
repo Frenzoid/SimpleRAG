@@ -4,6 +4,8 @@ from llm_handler import LLMHandler
 from configs import Configs
 
 class RAGSystem:
+
+    # The RAGSystem class is the main class of the system. It is responsible for running the system, which includes the following steps:
     def __init__(self):
         # We generate instances of the DocumentProcessor, DatabaseManager, and LLMHandler classes.
         self.doc_processor = DocumentProcessor()
@@ -11,7 +13,6 @@ class RAGSystem:
         self.llm_handler = LLMHandler()
 
     def run(self): 
-
 
         # If were preloading the Chroma database, we skip the document processing step, and we load it directly.
         if Configs.CHROMA_LOAD == False:
@@ -48,7 +49,7 @@ class RAGSystem:
             
             # Generate answer from the LLM 
             answer = self.llm_handler.generate_answer_hf_pipeline(prompt)
-            # answer = self.llm_handler.generate_answer_hf_tokenizer(prompt)
+            #answer = self.llm_handler.generate_answer_hf_tokenizer(prompt)
 
             print(f"LAMEGPT: \n {answer}")
 

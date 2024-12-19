@@ -56,8 +56,36 @@ class LLMHandler:
     def generate_prompt(self, results, query):
         # If there are no results, or the score of the results are below the threshold, tell the LLM to tell the user to try again.
         if not results or results[0][1] < Configs.EMBEDDINGS_THRESHOLD:
-            return "Follow this instruction, repeat after me: 'Couldn't find any document, please try again.'"
+            return "Follow this instruction, repeat after me and dont do anything else after: 'Couldn't find any document, please try again.'"
 
         # Generate a string with the documents and their scores.
-        documents_str = "\n".join([f"Document: {doc.metadata}\nContent: {doc.page_content}\nScore: {score}\n------------------------------\n" for doc, score in results])
+        documents_str = "\n".join([f"Document: {doc.page_content}\n------------------------------" for doc, _ in results])
         return Configs.PROMPT_INSTRUCTION.format(documents=documents_str, question=query)
+
+        """
+        Document:
+        asdadasdasdasdasdsad
+        asdasdasdasdas
+        dasdasd
+
+        ------------------------------
+        Document:
+        asdadasdasdasdasdsad
+        asdasdasdasdas
+        dasdasd
+
+        ------------------------------
+        Document:
+        asdadasdasdasdasdsad
+        asdasdasdasdas
+        dasdasd
+
+        ------------------------------
+        ocument:
+        asdadasdasdasdasdsad
+        asdasdasdasdas
+        dasdasd
+
+        ------------------------------
+        
+        """

@@ -20,11 +20,11 @@ class DatabaseManager:
 
         # If the database already exists, but we dont prelaod, then we delete it.
         if os.path.exists(Configs.CHROMADB_PATH):
-            print(f"Deleting old database at {Configs.CHROMADB_PATH}")
+            print(f"Deleting old database at path: {Configs.CHROMADB_PATH}")
             shutil.rmtree(Configs.CHROMADB_PATH)
         
         # Create a new database.
-        print(f"Creating new database at {Configs.CHROMADB_PATH}")
+        print(f"Creating new database at path: {Configs.CHROMADB_PATH}, ( this will take a while )")
         self.database = Chroma.from_documents(
             collection_name=Configs.CHROMA_COLLECTION_NAME, 
             documents=chunks, 
@@ -45,11 +45,17 @@ class DatabaseManager:
             return
 
         # If the database does not exist, get angryyyyyyyyyyyyyyyyyy
-        raise Exception("database files or Collection does not exist!!! aaaaaaaaaaaaaaaaAAAAAAAAA")
+        raise Exception("Database does not exist. If this is your first run, make sure CHROMA_LOAD is set to False in the configs.")
 
 
     # Query the database with a given query.
     def query_database(self, query):
+
+        # Check if database is loaded
+        if self.database is None:
+            raise Exception("Database is not loaded. Please load the database first.")
+        
+        # Query the database with the given query and return the results.
         results = self.database.similarity_search_with_relevance_scores(query, k=Configs.EMBEDDINGS_TOP_K)
         print(f"Found {len(results)} results.")
         return results

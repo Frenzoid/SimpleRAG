@@ -1042,9 +1042,9 @@ Chapter 3. Getting Started
 
 Figure 3.1 The path an Intel PC takes to get to a shell prompt. init may or may not start the X Window System. If it does, xdm runs. Otherwise, getty runs.
 
-LinuxLILOthe kernelthe X Window Systemthe shellinitbashxdmgettylogin
-
 BIOS
+
+LinuxLILOthe kernelthe X Window Systemthe shellinitbashxdmgettylogin
 
 Removing the disk and pressing a key will cause the boot process to continue.
 

@@ -22,12 +22,13 @@ class Configs:
     LLM_MAX_NEW_TOKENS = 2048 # Maximum new number of tokens to generate
     LLM_PADDING = 'max_length' # Padding for the LLM
     LLM_RANDOM = True # Random generation for the LLM
-    LLM_TEMP = 0.4 # Temperature for the random generation
+    LLM_TEMP = 0.1 # Temperature for the random generation
     LLM_RETURN_FULL_TEXT = False # Add the system propmt to the returned text
 
     # Database
     CHROMA_LOAD = False # Load the Chroma database if it already exists
     CHROMA_COLLECTION_NAME = "Collection1" # Default collection ( database ) name for the Chroma database
+
     # Embeddings
     EMBEDDINGS_TOP_K = 6 # Top K results to return from the Chroma database
 
@@ -38,7 +39,7 @@ class Configs:
 
     {documents}
 
-    Answer the following question in less than 300 words:
+    Answer the following question, be concise and clear, do not add filler words or information that is not relevant to the question:
 
     {question}
     """
