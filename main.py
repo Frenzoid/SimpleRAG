@@ -47,8 +47,8 @@ class RAGSystem:
             # Generate a prompt for the LLM model using the query and the results from the database.
             prompt = self.llm_handler.generate_prompt(results, query)
 
-            if prompt == False:
-                print("Couldn't find any relevant chunk of the documents')
+            if prompt is False:
+                print("Couldn't find any relevant chunk of the documents")
                 continue
             
             # Generate answer from the LLM 
