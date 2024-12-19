@@ -53,16 +53,18 @@ class LLMHandler:
 
 
     # Generate a prompt for the LLM model using the query and the results from the database.
-    def generate_prompt(self, results, query):
+    def generate_prompt(self, relevant_chunks, query):
         # If there are no results, or the score of the results are below the threshold, tell the LLM to tell the user to try again.
-        if not results or results[0][1] < Configs.EMBEDDINGS_THRESHOLD:
-            return "Follow this instruction, repeat after me and dont do anything else after: 'Couldn't find any document, please try again.'"
+        if not relevant_chunks or relevant_chunks[0][1] < Configs.EMBEDDINGS_THRESHOLD:
+            return False
 
         # Generate a string with the documents and their scores.
-        documents_str = "\n".join([f"Document: {doc.page_content}\n------------------------------" for doc, _ in results])
+        documents_str = "\n".join([f"Document: {doc.page_content}\n------------------------------" for doc, _ in relevant_chunks])
         return Configs.PROMPT_INSTRUCTION.format(documents=documents_str, question=query)
 
         """
+        The previous function generates something like this inside the {documents} variable in the instructions prompt.
+        
         Document:
         asdadasdasdasdasdsad
         asdasdasdasdas
